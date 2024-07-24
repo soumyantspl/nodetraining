@@ -16,19 +16,19 @@ const setPassword = async (data) => {
   const userData = await verifyEmail(data.email);
   console.log("userData-------------", userData);
   if (userData) {
-      const hashedPassword = await commonHelper.generetHashPassword(
-        data.password
-      );
-      return await Employee.updateOne(
-        { email: data.email },
-        { password: hashedPassword }
-      );
-    } else {
-      return {
-        isInValidUser: true,
-      };
-    }
-  
+    const hashedPassword = await commonHelper.generetHashPassword(
+      data.password
+    );
+    return await Employee.updateOne(
+      { email: data.email },
+      { password: hashedPassword }
+    );
+  } else {
+    return {
+      isInValidUser: true,
+    };
+  }
+
   return false;
 };
 
@@ -40,7 +40,6 @@ const signInByPassword = async (data) => {
       _id: 1,
       email: 1,
       isActive: 1,
-     
     }
   );
   console.log("userData----------", userData);
@@ -76,7 +75,7 @@ const signInByPassword = async (data) => {
     userData: {
       _id: userData._id,
       name: userData.name,
-      email: userData.email
+      email: userData.email,
     },
   };
 };
