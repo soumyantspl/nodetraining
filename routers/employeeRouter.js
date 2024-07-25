@@ -24,7 +24,7 @@ router.delete(
   "/deleteEmployee/:id",
   validator.deleteEmployeValidator,
   authMiddleware.verifyUserToken,
-  employeeController.deleteEmploye
+  employeeController.deleteEmployee
 );
 /* VIEW EMPLOYEE  */
 router.post(
@@ -38,7 +38,7 @@ router.get(
   "/viewSingleEmployee/:id",
   validator.viewSingleEmployeeValidator,
   authMiddleware.verifyUserToken,
-  employeeController.viewSingleEmploye
+  employeeController.viewSingleEmployee
 );
 
 module.exports = router;

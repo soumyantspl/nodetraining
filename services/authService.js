@@ -1,6 +1,7 @@
 const Employee = require("../models/employeeModel");
 const commonHelper = require("../helpers/commonHelper");
 const authMiddleware = require("../middlewares/authMiddleware");
+const emailService = require("./emailService");
 const ObjectId = require("mongoose").Types.ObjectId;
 /**FUNC- TO VERIFY VALID EMAIL USER */
 const verifyEmail = async (email) => {
@@ -19,10 +20,18 @@ const setPassword = async (data) => {
     const hashedPassword = await commonHelper.generetHashPassword(
       data.password
     );
-    return await Employee.updateOne(
+    await Employee.updateOne(
       { email: data.email },
       { password: hashedPassword }
     );
+
+    await emailService.sendEmail(
+      userData.email,
+      emailSubject,
+      mailData
+    );
+
+    return true;
   } else {
     return {
       isInValidUser: true,
