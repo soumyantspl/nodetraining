@@ -22,12 +22,7 @@ const employeeSchema = new mongoose.Schema(
       type: String,
       default: null,
     },
-    designationId: {
-      type: mongoose.Schema.ObjectId,
-      //   required: true,
-      default: null,
-    },
-
+  
     organizationId: {
       type: mongoose.Schema.ObjectId,
       required: true,
