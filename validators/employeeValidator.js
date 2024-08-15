@@ -129,10 +129,12 @@ const listEmployesValidator = async (req, res, next) => {
     const bodySchema = Joi.object({
       searchKey: Joi.string()
         .trim()
-        .pattern(/^[0-9a-zA-Z ,/-]+$/)
+        .pattern(regularExpression)
         .messages({
           "string.pattern.base": `HTML tags & Special letters are not allowed!`,
         }),
+
+     // organizationId: Joi.string().trim().alphanum().required(),
     });
     const paramsSchema = Joi.object({
       limit: Joi.number(),

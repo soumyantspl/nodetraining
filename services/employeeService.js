@@ -22,7 +22,9 @@ const createEmployee = async (userId, data, ipAddress = "1000") => {
     const inputData = {
       name: data.name,
       email: data.email,
+      employeeImage:data.employeeImage
     };
+
     const empData = new Employee(inputData);
     const result = await empData.save();
     return result;
@@ -133,7 +135,22 @@ const checkDuplicateEntry = async (email, empId) => {
 const editEmployee = async (userId, id, data, ipAddress = "1000") => {
   console.log("Data received for update:", data);
   console.log("Employee ID:", id);
+  const currentData = await Employee.findById({
+    _id: new ObjectId(id), // Ensure `id` is passed as ObjectId
+    isActive: true,
+  });
 
+  if (!currentData) {
+    return null;
+  }
+
+  const updateData = {
+    ...data,
+    employeeImage:
+      data.employeeImage !== undefined
+        ? data.employeeImage
+        : currentData.employeeImage,
+  };
   const [emailDetails, empCodeDetails] = await checkDuplicateEntry(data.email);
 
   if (emailDetails && emailDetails._id.toString() !== id) {

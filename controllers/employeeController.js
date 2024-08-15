@@ -5,9 +5,23 @@ const messages = require("../constants/constantMessages");
 /**FUNC- TO CREATE EMPLOYEE**/
 const createEmployee = async (req, res) => {
   try {
+
+    console.log("In request body--", req.body);
+    const data = {
+      name: req.body.name,
+      email: req.body.email,
+      phoneNo: req.body.phoneNo,
+    };
+    if (req.files && req.files["employeeImage"]) {
+      data.employeeImage = req.files["employeeImage"][0].path;
+    }
+   
+    console.log("Files in controller", req.files);
+
+
     const result = await employeeService.createEmployee(
       req.userId,
-      req.body,
+      data,
       req.ip
     );
     console.log(result);
@@ -38,10 +52,30 @@ const createEmployee = async (req, res) => {
 /**FUNC- TO EDIT EMPLOYEE **/
 const editEmployee = async (req, res) => {
   try {
+
+
+
+
+    console.log("In request body--", req.body);
+    const data = {
+      name: req.body.name,
+      email: req.body.email,
+      phoneNo: req.body.phoneNo,
+    };
+    if (req.files && req.files["employeeImage"]) {
+      data.employeeImage = req.files["employeeImage"][0].path;
+    }
+   
+    console.log("Files in controller", req.files);
+
+
+
+
+    
     const result = await employeeService.editEmployee(
       req.userId,
       req.params.id,
-      req.body,
+     data,
       req.ip
     );
     console.log(result);
